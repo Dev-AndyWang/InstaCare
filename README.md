@@ -1,6 +1,6 @@
 # InstaCare
 
-PainPoint AI - Body Pain Mapping Application built with React + Vite
+ InstaCare - Body Pain Mapping Application built with Javascript, React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
