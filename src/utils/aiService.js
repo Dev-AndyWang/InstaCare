@@ -12,6 +12,9 @@ export async function generateDiagnosis(userData) {
     dangerouslyAllowBrowser: true // Note: For production, use a backend server
   });
 
+  // Check if any pain points have images
+  const hasImages = userData.painPoints.some(point => point.image);
+
   // Format pain points data into readable text
   const painPointsText = userData.painPoints.map((point, index) => `
 ${index + 1}. Location: ${point.bodyPartName} (${point.view} view)
@@ -21,6 +24,7 @@ ${index + 1}. Location: ${point.bodyPartName} (${point.view} view)
    - Sensation: ${point.sensation}
    - Duration: ${point.duration}
    - Other Symptoms: ${point.otherSymptoms || 'None specified'}
+   - Image: ${point.image ? `Included (Image ${index + 1})` : 'Not provided'}
   `).join('\n');
 
   const prompt = `Analyze these symptoms and provide a comprehensive health assessment:
@@ -32,6 +36,15 @@ PATIENT INFORMATION:
 PAIN POINTS:
 ${painPointsText}
 
+${hasImages ? `\nIMAGES PROVIDED:
+I have included ${userData.painPoints.filter(p => p.image).length} image(s) of the affected area(s). Please carefully examine these images and incorporate your visual observations into the diagnosis. Look for:
+- Visible signs of injury, swelling, or inflammation
+- Skin discoloration, rashes, or abnormalities
+- Posture or positioning issues
+- Any other visual indicators that might help with diagnosis
+
+Reference each image by its number (Image 1, Image 2, etc.) when discussing visual findings.
+` : ''}
 Please provide a detailed analysis in EXACTLY this 5-section format. Use clear headers and markdown formatting:
 
 # 📋 WHAT THIS MIGHT BE
@@ -174,12 +187,38 @@ Please provide a detailed analysis in EXACTLY this 5-section format. Use clear h
 Remember to use simple, beginner-friendly language throughout. Avoid medical jargon unless you explain it immediately. Be empathetic and supportive in tone.`;
 
   try {
+    // Build content array for multimodal support
+    const contentArray = [{ type: 'text', text: prompt }];
+
+    // Add images if present
+    if (hasImages) {
+      userData.painPoints.forEach((point, index) => {
+        if (point.image) {
+          // Extract base64 data and media type from data URL
+          const matches = point.image.match(/^data:([^;]+);base64,(.+)$/);
+          if (matches) {
+            const mediaType = matches[1];
+            const base64Data = matches[2];
+
+            contentArray.push({
+              type: 'image',
+              source: {
+                type: 'base64',
+                media_type: mediaType,
+                data: base64Data
+              }
+            });
+          }
+        }
+      });
+    }
+
     const message = await anthropic.messages.create({
       model: 'claude-sonnet-4-5-20250929',
       max_tokens: 4096,
       messages: [{
         role: 'user',
-        content: prompt
+        content: contentArray
       }]
     });
 
