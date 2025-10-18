@@ -3,15 +3,22 @@ import './App.css';
 import MaleBodyFront from './components/MaleBodyFront';
 import MaleBodyBack from './components/MaleBodyBack';
 import PainDetailsModal from './components/PainDetailsModal';
+import DiagnosisModal from './components/DiagnosisModal';
+import { generateDiagnosis } from './utils/aiService';
 
 function App() {
   const [gender, setGender] = useState('Male');
+  const [age, setAge] = useState('');
   const [painPoints, setPainPoints] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedBodyPart, setSelectedBodyPart] = useState(null);
   const [selectedBodyPartName, setSelectedBodyPartName] = useState('');
   const [selectedView, setSelectedView] = useState('front');
   const [editingPoint, setEditingPoint] = useState(null);
+  const [diagnosisData, setDiagnosisData] = useState(null);
+  const [diagnosisLoading, setDiagnosisLoading] = useState(false);
+  const [diagnosisError, setDiagnosisError] = useState(null);
+  const [showDiagnosis, setShowDiagnosis] = useState(false);
 
   // Load pain points from localStorage
   useEffect(() => {
@@ -76,10 +83,36 @@ function App() {
     }
   };
 
+  const handleGetDiagnosis = async () => {
+    if (painPoints.length === 0) {
+      alert('Please mark at least one pain point on the body diagram before getting a diagnosis.');
+      return;
+    }
+
+    setDiagnosisLoading(true);
+    setDiagnosisError(null);
+    setShowDiagnosis(true);
+
+    try {
+      const result = await generateDiagnosis({
+        age,
+        gender,
+        painPoints
+      });
+
+      setDiagnosisData(result.diagnosis);
+    } catch (error) {
+      setDiagnosisError(error.message);
+    } finally {
+      setDiagnosisLoading(false);
+    }
+  };
+
   const handleExportReport = () => {
     const report = {
       exportDate: new Date().toISOString(),
       gender,
+      age: age || 'Not specified',
       totalPainPoints: painPoints.length,
       painPoints: painPoints.map(p => ({
         bodyPart: p.bodyPartName,
@@ -110,7 +143,7 @@ function App() {
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <h1 className="text-3xl font-bold text-gray-900">
-            PainPoint AI - Body Pain Mapper
+            InstaCare - Medical AI Diagnosis
           </h1>
           <p className="text-gray-600 mt-1">
             Click on body parts to map and track your pain points
@@ -121,30 +154,50 @@ function App() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-8">
         <div className="bg-white rounded-xl shadow-lg p-6">
-          {/* Gender Selection */}
+          {/* Personal Information */}
           <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-3">Select Gender</h2>
-            <div className="flex gap-4">
-              <button
-                onClick={() => setGender('Male')}
-                className={`px-6 py-3 rounded-lg border-2 font-semibold transition-all ${
-                  gender === 'Male'
-                    ? 'border-blue-500 bg-blue-50 text-blue-700'
-                    : 'border-gray-300 hover:border-gray-400 text-gray-700'
-                }`}
-              >
-                Male
-              </button>
-              <button
-                onClick={() => setGender('Female')}
-                className={`px-6 py-3 rounded-lg border-2 font-semibold transition-all ${
-                  gender === 'Female'
-                    ? 'border-pink-500 bg-pink-50 text-pink-700'
-                    : 'border-gray-300 hover:border-gray-400 text-gray-700'
-                }`}
-              >
-                Female
-              </button>
+            <h2 className="text-lg font-semibold text-gray-900 mb-3">Personal Information</h2>
+            <div className="flex flex-col md:flex-row gap-6">
+              {/* Gender Selection */}
+              <div className="flex-1">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+                <div className="flex gap-4">
+                  <button
+                    onClick={() => setGender('Male')}
+                    className={`px-6 py-3 rounded-lg border-2 font-semibold transition-all ${
+                      gender === 'Male'
+                        ? 'border-blue-500 bg-blue-50 text-blue-700'
+                        : 'border-gray-300 hover:border-gray-400 text-gray-700'
+                    }`}
+                  >
+                    Male
+                  </button>
+                  <button
+                    onClick={() => setGender('Female')}
+                    className={`px-6 py-3 rounded-lg border-2 font-semibold transition-all ${
+                      gender === 'Female'
+                        ? 'border-pink-500 bg-pink-50 text-pink-700'
+                        : 'border-gray-300 hover:border-gray-400 text-gray-700'
+                    }`}
+                  >
+                    Female
+                  </button>
+                </div>
+              </div>
+
+              {/* Age Input */}
+              <div className="flex-1">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
+                <input
+                  type="number"
+                  value={age}
+                  onChange={(e) => setAge(e.target.value)}
+                  placeholder="Enter your age"
+                  min="0"
+                  max="150"
+                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+              </div>
             </div>
           </div>
 
@@ -231,11 +284,20 @@ function App() {
           {/* Action Buttons */}
           <div className="flex flex-wrap gap-4">
             <button
-              onClick={handleExportReport}
-              disabled={painPoints.length === 0}
-              className="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              onClick={handleGetDiagnosis}
+              disabled={painPoints.length === 0 || diagnosisLoading}
+              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg flex items-center gap-2"
             >
-              Export Report (JSON)
+              {diagnosisLoading ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
+                  Analyzing...
+                </>
+              ) : (
+                <>
+                  🩺 Get AI Diagnosis
+                </>
+              )}
             </button>
             <button
               onClick={handleClearAll}
@@ -261,6 +323,15 @@ function App() {
         bodyPartName={selectedBodyPartName}
         view={selectedView}
         existingData={editingPoint}
+      />
+
+      {/* Diagnosis Results Modal */}
+      <DiagnosisModal
+        isOpen={showDiagnosis}
+        onClose={() => setShowDiagnosis(false)}
+        diagnosisData={diagnosisData}
+        loading={diagnosisLoading}
+        error={diagnosisError}
       />
     </div>
   );
