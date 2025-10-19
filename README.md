@@ -83,3 +83,10 @@
   qualified healthcare provider for proper medical        
   care. If experiencing a medical emergency, call 911     
   immediately.
+
+  Contributors to this application:
+  Andy Wang
+  Cayden Granado
+  William Nguyen
+  Jayden Dhaliwal
+  Jasmine Bui
