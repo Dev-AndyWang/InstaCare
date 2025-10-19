@@ -1,4 +1,4 @@
-export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
+export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBodyPart }) {
   const isPainPoint = (bodyPartId) => {
     return painPoints.find(p => p.bodyPartId === bodyPartId);
   };
@@ -8,8 +8,27 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
     return point ? point.intensity : null;
   };
 
+  const isSelected = (bodyPartId) => {
+    return selectedBodyPart === bodyPartId;
+  };
+
+  const getStrokeProps = (bodyPartId) => {
+    if (isSelected(bodyPartId)) {
+      return {
+        stroke: "#8B5CF6",
+        strokeWidth: "4",
+        strokeDasharray: ""
+      };
+    }
+    return {
+      stroke: "#D1D5DB",
+      strokeWidth: "2",
+      strokeDasharray: "4 4"
+    };
+  };
+
   return (
-    <svg viewBox="0 0 200 600" className="w-full h-auto max-w-sm">
+    <svg viewBox="0 0 200 450" className="w-full h-auto max-w-sm">
       {/* Head */}
       <g
         onClick={() => onBodyPartClick('front-head', 'Head', 'front')}
@@ -20,9 +39,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           cy="40"
           rx="25"
           ry="30"
-          stroke="#D1D5DB"
-          strokeWidth="2"
-          strokeDasharray="4 4"
+          {...getStrokeProps('front-head')}
           fill={isPainPoint('front-head') ? '#FB923C' : 'transparent'}
           className="transition-all duration-200 hover:fill-orange-100"
         />
@@ -44,9 +61,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           width="30"
           height="20"
           rx="3"
-          stroke="#D1D5DB"
-          strokeWidth="2"
-          strokeDasharray="4 4"
+          {...getStrokeProps('front-neck')}
           fill={isPainPoint('front-neck') ? '#FB923C' : 'transparent'}
           className="transition-all duration-200 hover:fill-orange-100"
         />
@@ -66,7 +81,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           cx="70"
           cy="100"
           r="12"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-right-shoulder') ? '#FB923C' : 'transparent'}
@@ -88,7 +103,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           cx="130"
           cy="100"
           r="12"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-left-shoulder') ? '#FB923C' : 'transparent'}
@@ -112,7 +127,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           width="50"
           height="35"
           rx="8"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-upper-chest') ? '#FB923C' : 'transparent'}
@@ -136,7 +151,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           width="40"
           height="30"
           rx="6"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-mid-chest') ? '#FB923C' : 'transparent'}
@@ -160,7 +175,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           width="40"
           height="30"
           rx="6"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-upper-abdomen') ? '#FB923C' : 'transparent'}
@@ -184,7 +199,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           width="36"
           height="35"
           rx="6"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-lower-abdomen') ? '#FB923C' : 'transparent'}
@@ -208,7 +223,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           width="18"
           height="60"
           rx="9"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-right-upper-arm') ? '#FB923C' : 'transparent'}
@@ -232,7 +247,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           width="18"
           height="60"
           rx="9"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-left-upper-arm') ? '#FB923C' : 'transparent'}
@@ -254,7 +269,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           cx="57"
           cy="165"
           r="8"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-right-elbow') ? '#FB923C' : 'transparent'}
@@ -276,7 +291,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           cx="143"
           cy="165"
           r="8"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-left-elbow') ? '#FB923C' : 'transparent'}
@@ -300,7 +315,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           width="16"
           height="55"
           rx="8"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-right-forearm') ? '#FB923C' : 'transparent'}
@@ -324,7 +339,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           width="16"
           height="55"
           rx="8"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-left-forearm') ? '#FB923C' : 'transparent'}
@@ -347,7 +362,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           cy="238"
           rx="10"
           ry="12"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-right-hand') ? '#FB923C' : 'transparent'}
@@ -370,7 +385,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           cy="238"
           rx="10"
           ry="12"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-left-hand') ? '#FB923C' : 'transparent'}
@@ -394,7 +409,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           width="16"
           height="80"
           rx="8"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-right-thigh') ? '#FB923C' : 'transparent'}
@@ -418,7 +433,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           width="16"
           height="80"
           rx="8"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-left-thigh') ? '#FB923C' : 'transparent'}
@@ -440,7 +455,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           cx="90"
           cy="305"
           r="10"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-right-knee') ? '#FB923C' : 'transparent'}
@@ -462,7 +477,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           cx="110"
           cy="305"
           r="10"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-left-knee') ? '#FB923C' : 'transparent'}
@@ -486,7 +501,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           width="14"
           height="80"
           rx="7"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-right-shin') ? '#FB923C' : 'transparent'}
@@ -510,7 +525,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           width="14"
           height="80"
           rx="7"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-left-shin') ? '#FB923C' : 'transparent'}
@@ -533,7 +548,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           cy="405"
           rx="12"
           ry="18"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-right-foot') ? '#FB923C' : 'transparent'}
@@ -556,7 +571,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick }) {
           cy="405"
           rx="12"
           ry="18"
-          stroke="#D1D5DB"
+          
           strokeWidth="2"
           strokeDasharray="4 4"
           fill={isPainPoint('front-left-foot') ? '#FB923C' : 'transparent'}

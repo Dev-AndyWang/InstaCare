@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { ArrowLeft } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { ArrowLeft, User, Calendar, Sparkles, Trash2 } from 'lucide-react';
 import '../App.css';
 import MaleBodyFront from '../components/MaleBodyFront';
 import MaleBodyBack from '../components/MaleBodyBack';
@@ -139,55 +140,67 @@ export default function DiagnosisApp({ onBackToLanding }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50">
+    <div className="min-h-screen bg-gradient-to-br from-[#E5D9F2] via-[#F5E6FF] via-[#FFE5F1] via-[#E5E5FF] to-[#F0E6FF]">
       {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex items-center gap-4 mb-2">
-            <button
-              onClick={onBackToLanding}
-              className="p-2 hover:bg-gray-100 rounded-full transition-colors"
-              aria-label="Back to landing page"
-            >
-              <ArrowLeft className="w-5 h-5 text-gray-600" />
-            </button>
-            <h1 className="text-3xl font-bold text-gray-900">
-              InstaCare - Medical AI Diagnosis
-            </h1>
+      <header className="bg-white/80 backdrop-blur-sm shadow-lg border-b-2 border-purple-100">
+        <div className="max-w-[1440px] mx-auto px-8 lg:px-16 py-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-6">
+              <button
+                onClick={onBackToLanding}
+                className="p-3 hover:bg-gradient-to-r hover:from-purple-100 hover:to-pink-100 rounded-full transition-all duration-300 group"
+                aria-label="Back to landing page"
+              >
+                <ArrowLeft className="w-6 h-6 text-gray-700 group-hover:text-purple-700 transition-colors" />
+              </button>
+              <div>
+                <h1 className="text-3xl lg:text-4xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 bg-clip-text text-transparent">
+                  InstaCare AI Diagnosis
+                </h1>
+                <p className="text-gray-600 mt-1 text-sm lg:text-base font-medium">
+                  Click on body parts to map and track your symptoms
+                </p>
+              </div>
+            </div>
           </div>
-          <p className="text-gray-600 mt-1 ml-14">
-            Click on body parts to map and track your pain points
-          </p>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 py-8">
-        <div className="bg-white rounded-xl shadow-lg p-6">
+      <main className="max-w-[1440px] mx-auto px-8 lg:px-16 py-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl p-8 lg:p-12"
+        >
           {/* Personal Information */}
-          <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-3">Personal Information</h2>
-            <div className="flex flex-col md:flex-row gap-6">
+          <div className="mb-12">
+            <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-6">Personal Information</h2>
+            <div className="grid md:grid-cols-2 gap-8">
               {/* Gender Selection */}
-              <div className="flex-1">
-                <label className="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+              <div>
+                <label className="flex items-center gap-2 text-base font-bold text-gray-700 mb-4">
+                  <User className="w-5 h-5 text-purple-600" />
+                  Gender
+                </label>
                 <div className="flex gap-4">
                   <button
                     onClick={() => setGender('Male')}
-                    className={`px-6 py-3 rounded-lg border-2 font-semibold transition-all ${
+                    className={`flex-1 px-6 py-4 rounded-2xl border-2 font-bold text-lg transition-all duration-300 transform hover:scale-105 ${
                       gender === 'Male'
-                        ? 'border-blue-500 bg-blue-50 text-blue-700'
-                        : 'border-gray-300 hover:border-gray-400 text-gray-700'
+                        ? 'border-transparent bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg shadow-blue-300/50'
+                        : 'border-gray-300 bg-white hover:border-blue-400 text-gray-700 hover:shadow-md'
                     }`}
                   >
                     Male
                   </button>
                   <button
                     onClick={() => setGender('Female')}
-                    className={`px-6 py-3 rounded-lg border-2 font-semibold transition-all ${
+                    className={`flex-1 px-6 py-4 rounded-2xl border-2 font-bold text-lg transition-all duration-300 transform hover:scale-105 ${
                       gender === 'Female'
-                        ? 'border-pink-500 bg-pink-50 text-pink-700'
-                        : 'border-gray-300 hover:border-gray-400 text-gray-700'
+                        ? 'border-transparent bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg shadow-pink-300/50'
+                        : 'border-gray-300 bg-white hover:border-pink-400 text-gray-700 hover:shadow-md'
                     }`}
                   >
                     Female
@@ -196,8 +209,11 @@ export default function DiagnosisApp({ onBackToLanding }) {
               </div>
 
               {/* Age Input */}
-              <div className="flex-1">
-                <label className="block text-sm font-medium text-gray-700 mb-2">Age</label>
+              <div>
+                <label className="flex items-center gap-2 text-base font-bold text-gray-700 mb-4">
+                  <Calendar className="w-5 h-5 text-purple-600" />
+                  Age
+                </label>
                 <input
                   type="number"
                   value={age}
@@ -205,53 +221,47 @@ export default function DiagnosisApp({ onBackToLanding }) {
                   placeholder="Enter your age"
                   min="0"
                   max="150"
-                  className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-6 py-4 border-2 border-gray-300 rounded-2xl text-lg font-semibold focus:ring-4 focus:ring-purple-200 focus:border-purple-500 transition-all duration-300 placeholder:text-gray-400 hover:border-purple-300"
                 />
               </div>
             </div>
           </div>
 
           {/* Body Diagrams */}
-          <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Body Diagram</h2>
+          <div className="mb-12">
+            <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-6">Body Diagram</h2>
             <div className="grid md:grid-cols-2 gap-8">
               {/* Front View */}
               <div>
-                <h3 className="text-center text-lg font-semibold text-gray-700 mb-4 bg-gray-100 py-2 rounded-lg">
+                <h3 className={`text-center text-xl font-black text-white mb-4 py-3 rounded-2xl shadow-lg ${
+                  gender === 'Male'
+                    ? 'bg-gradient-to-r from-blue-500 to-cyan-500'
+                    : 'bg-gradient-to-r from-pink-500 to-purple-500'
+                }`}>
                   Front View
                 </h3>
                 <div className="flex justify-center">
-                  {gender === 'Male' ? (
-                    <MaleBodyFront
-                      painPoints={painPoints}
-                      onBodyPartClick={handleBodyPartClick}
-                    />
-                  ) : (
-                    <MaleBodyFront
-                      painPoints={painPoints}
-                      onBodyPartClick={handleBodyPartClick}
-                    />
-                  )}
+                  <MaleBodyFront
+                    painPoints={painPoints}
+                    onBodyPartClick={handleBodyPartClick}
+                  />
                 </div>
               </div>
 
               {/* Back View */}
               <div>
-                <h3 className="text-center text-lg font-semibold text-gray-700 mb-4 bg-gray-100 py-2 rounded-lg">
+                <h3 className={`text-center text-xl font-black text-white mb-4 py-3 rounded-2xl shadow-lg ${
+                  gender === 'Male'
+                    ? 'bg-gradient-to-r from-blue-500 to-cyan-500'
+                    : 'bg-gradient-to-r from-pink-500 to-purple-500'
+                }`}>
                   Back View
                 </h3>
                 <div className="flex justify-center">
-                  {gender === 'Male' ? (
-                    <MaleBodyBack
-                      painPoints={painPoints}
-                      onBodyPartClick={handleBodyPartClick}
-                    />
-                  ) : (
-                    <MaleBodyBack
-                      painPoints={painPoints}
-                      onBodyPartClick={handleBodyPartClick}
-                    />
-                  )}
+                  <MaleBodyBack
+                    painPoints={painPoints}
+                    onBodyPartClick={handleBodyPartClick}
+                  />
                 </div>
               </div>
             </div>
@@ -259,8 +269,8 @@ export default function DiagnosisApp({ onBackToLanding }) {
 
           {/* Pain Points Summary */}
           {painPoints.length > 0 && (
-            <div className="mb-8 p-6 bg-orange-50 border-2 border-orange-200 rounded-lg">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            <div className="mb-12 p-8 bg-gradient-to-br from-orange-50/80 to-pink-50/80 border-2 border-orange-200/50 rounded-2xl shadow-lg">
+              <h3 className="text-2xl lg:text-3xl font-black text-gray-900 mb-6">
                 Current Pain Points ({painPoints.length})
               </h3>
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -292,32 +302,34 @@ export default function DiagnosisApp({ onBackToLanding }) {
           )}
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-6">
             <button
               onClick={handleGetDiagnosis}
               disabled={painPoints.length === 0 || diagnosisLoading}
-              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 disabled:bg-gray-300 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg flex items-center gap-2"
+              className="group relative px-10 py-5 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 text-white rounded-2xl text-xl font-black tracking-wide uppercase transition-all duration-300 shadow-[0_10px_40px_rgba(139,92,246,0.4)] hover:shadow-[0_15px_60px_rgba(139,92,246,0.6)] hover:scale-105 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:shadow-none flex items-center gap-3"
             >
               {diagnosisLoading ? (
                 <>
-                  <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
-                  Analyzing...
+                  <div className="animate-spin rounded-full h-6 w-6 border-3 border-white border-t-transparent"></div>
+                  <span>Analyzing...</span>
                 </>
               ) : (
                 <>
-                  🩺 Get AI Diagnosis
+                  <Sparkles className="w-6 h-6" />
+                  <span>Get AI Diagnosis</span>
                 </>
               )}
             </button>
             <button
               onClick={handleClearAll}
               disabled={painPoints.length === 0}
-              className="px-6 py-3 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+              className="px-8 py-5 bg-white border-2 border-red-300 text-red-600 rounded-2xl text-lg font-bold hover:bg-red-50 hover:border-red-400 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 flex items-center gap-3 hover:scale-105 active:scale-95 disabled:hover:scale-100"
             >
-              Clear All
+              <Trash2 className="w-5 h-5" />
+              <span>Clear All</span>
             </button>
           </div>
-        </div>
+        </motion.div>
       </main>
 
       {/* Pain Details Modal */}

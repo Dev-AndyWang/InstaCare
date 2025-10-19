@@ -9,7 +9,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
   };
 
   return (
-    <svg viewBox="0 0 200 600" className="w-full h-auto max-w-sm">
+    <svg viewBox="0 0 200 450" className="w-full h-auto max-w-sm">
       {/* Head (Back) */}
       <g onClick={() => onBodyPartClick('back-head', 'Head (Back)', 'back')} className="cursor-pointer">
         <ellipse

@@ -11,15 +11,17 @@ export default function ScrollIndicator() {
 
   return (
     <motion.button
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.6, delay: 2 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 2 }}
       onClick={scrollDown}
-      className="fixed bottom-10 right-10 z-40 bg-black text-white px-6 py-3 rounded-full flex items-center gap-2 text-sm animate-bounce-indicator hover:bg-black/90 transition-colors duration-300"
+      className="fixed bottom-8 right-8 lg:bottom-12 lg:right-12 z-40 group"
       aria-label="Scroll for more"
     >
-      <span>Scroll for more</span>
-      <ChevronDown className="w-4 h-4" />
+      <div className="bg-gray-900 text-white px-5 py-3 rounded-full flex items-center gap-2 text-xs font-medium uppercase tracking-wide shadow-xl hover:shadow-2xl transition-all duration-300 hover:bg-gray-800 hover:scale-105">
+        <ChevronDown className="w-4 h-4 animate-bounce-indicator" />
+        <span>Scroll for more</span>
+      </div>
     </motion.button>
   );
 }
