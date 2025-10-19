@@ -1,6 +1,5 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { MapPin, Brain, TrendingUp, Shield } from 'lucide-react';
 
 export default function TechnologySection() {
   const ref = useRef(null);
@@ -11,25 +10,25 @@ export default function TechnologySection() {
       number: "01",
       title: "Body Mapping",
       description: "Click any body part to record pain and symptoms",
-      icon: MapPin
+      image: "https://images.unsplash.com/photo-1530210124550-912dc1381cb8?w=800&h=600&fit=crop&q=80"
     },
     {
       number: "02",
       title: "AI Diagnosis",
       description: "Advanced AI analyzes text and images instantly",
-      icon: Brain
+      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=600&fit=crop&q=80"
     },
     {
       number: "03",
       title: "Symptom Tracking",
       description: "Monitor pain patterns and intensity over time",
-      icon: TrendingUp
+      image: "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&h=600&fit=crop&q=80"
     },
     {
       number: "04",
       title: "Privacy First",
       description: "Your health data never leaves your device",
-      icon: Shield
+      image: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&h=600&fit=crop&q=80"
     }
   ];
 
@@ -45,7 +44,7 @@ export default function TechnologySection() {
         >
           {/* Headline */}
           <div className="text-center max-w-4xl mx-auto mb-16">
-            <h2 className="font-display text-5xl lg:text-6xl xl:text-7xl font-black text-gray-900 mb-8 leading-tight">
+            <h2 className="font-display text-5xl lg:text-7xl xl:text-8xl font-black text-dark-charcoal mb-8 leading-tight">
               How it works
             </h2>
           </div>
@@ -53,44 +52,37 @@ export default function TechnologySection() {
           {/* Technology Stack Grid */}
           <div className="grid md:grid-cols-2 gap-10">
             {techStack.map((tech, index) => {
-              const borderColors = [
-                'border-purple-300/40 hover:border-purple-400/50',
-                'border-blue-300/40 hover:border-blue-400/50',
-                'border-pink-300/40 hover:border-pink-400/50',
-                'border-cyan-300/40 hover:border-cyan-400/50'
-              ];
-              const gradients = [
-                'from-purple-500 to-pink-500',
-                'from-blue-500 to-cyan-500',
-                'from-pink-500 to-orange-500',
-                'from-cyan-500 to-purple-500'
-              ];
-
-              const IconComponent = tech.icon;
-
               return (
                 <motion.div
                   key={tech.number}
                   initial={{ opacity: 0, y: 40 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-                  className={`bg-white/90 backdrop-blur-sm rounded-3xl shadow-lg p-10 hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border-2 ${borderColors[index]}`}
+                  className="relative bg-cream/90 backdrop-blur-sm rounded-3xl shadow-card-soft hover:shadow-card-hover hover:scale-[1.02] transition-all duration-300 border-2 border-[#C0C0C0] overflow-hidden"
                 >
-                  {/* Number and Icon */}
-                  <div className="flex items-center gap-12 mb-6">
-                    <div className="text-8xl lg:text-9xl font-black text-gray-900">
-                      {tech.number}
-                    </div>
-                    <div className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${gradients[index]} flex items-center justify-center shadow-lg flex-shrink-0`}>
-                      <IconComponent className="w-10 h-10 text-white stroke-[2.5]" />
-                    </div>
+                  {/* Step Number */}
+                  <div className="absolute top-6 left-6 text-6xl lg:text-7xl font-black text-white z-10 drop-shadow-[0_2px_8px_rgba(0,0,0,0.3)]">
+                    {tech.number}
                   </div>
 
-                  {/* Title */}
-                  <h3 className="font-display text-3xl lg:text-4xl font-black text-gray-900 mb-4">{tech.title}</h3>
+                  {/* Image */}
+                  <div className="relative w-full h-64 overflow-hidden">
+                    <img
+                      src={tech.image}
+                      alt={tech.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-cream/90 via-cream/40 to-transparent"></div>
+                  </div>
 
-                  {/* Description */}
-                  <p className="text-xl lg:text-2xl text-gray-700 leading-relaxed font-medium">{tech.description}</p>
+                  {/* Content */}
+                  <div className="p-10 pt-6">
+                    {/* Title */}
+                    <h3 className="font-display text-4xl lg:text-5xl font-black text-dark-charcoal mb-4">{tech.title}</h3>
+
+                    {/* Description */}
+                    <p className="text-xl lg:text-2xl text-text-primary leading-relaxed font-semibold">{tech.description}</p>
+                  </div>
                 </motion.div>
               );
             })}

@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Volume2, Menu } from 'lucide-react';
+import LanguageSelector from '../LanguageSelector';
 
-export default function Header() {
+export default function Header({ selectedLanguage, onLanguageChange }) {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -57,6 +58,10 @@ export default function Header() {
           >
             <Volume2 className="w-5 h-5 text-gray-600 group-hover:text-gray-900 transition-colors" />
           </button>
+          <LanguageSelector
+            selectedLanguage={selectedLanguage}
+            onLanguageChange={onLanguageChange}
+          />
           <button
             className="flex items-center gap-2 px-4 py-2.5 hover:bg-gray-100 rounded-full transition-all duration-300 group"
             aria-label="Menu"

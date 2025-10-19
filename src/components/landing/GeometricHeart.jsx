@@ -54,12 +54,12 @@ export default function GeometricHeart() {
     const geometry = new THREE.ExtrudeGeometry(heartShape, extrudeSettings);
     geometry.center();
 
-    // Material
+    // Material - Vibrant Red
     const material = new THREE.MeshPhongMaterial({
-      color: 0xE91E63,
-      emissive: 0xFF1493,
-      emissiveIntensity: 0.5,
-      shininess: 100,
+      color: 0xEF4444,        // vibrant red
+      emissive: 0xFF6B6B,     // lighter red glow
+      emissiveIntensity: 0.3,  // reduced from 0.5
+      shininess: 80,           // slightly reduced
       flatShading: false,
       transparent: true,
       opacity: 0.95
@@ -75,17 +75,32 @@ export default function GeometricHeart() {
 
     scene.add(heart);
 
-    // Lights
+    // Add black outline
+    const edges = new THREE.EdgesGeometry(geometry, 15);
+    const lineMaterial = new THREE.LineBasicMaterial({ color: 0x000000, linewidth: 2 });
+    const outline = new THREE.LineSegments(edges, lineMaterial);
+
+    // Match the heart's transform
+    outline.scale.set(1.624, 1.624, 1.624);
+    outline.rotation.z = Math.PI;
+
+    scene.add(outline);
+
+    // Lights - Warm Red Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     scene.add(ambientLight);
 
-    const pointLight1 = new THREE.PointLight(0xFFB6C1, 2, 50);
+    const pointLight1 = new THREE.PointLight(0xEF4444, 1.5, 50); // vibrant red
     pointLight1.position.set(5, 5, 5);
     scene.add(pointLight1);
 
-    const pointLight2 = new THREE.PointLight(0xDDA0DD, 1.5, 50);
+    const pointLight2 = new THREE.PointLight(0xFF6B6B, 1.2, 50); // lighter red
     pointLight2.position.set(-5, -5, 5);
     scene.add(pointLight2);
+
+    const pointLight3 = new THREE.PointLight(0xFF8888, 1.0, 50); // warm red
+    pointLight3.position.set(0, 5, -5);
+    scene.add(pointLight3);
 
     // Animation variables
     let pulseTime = 0;
@@ -123,10 +138,12 @@ export default function GeometricHeart() {
       }
 
       heart.scale.set(scale, scale, scale);
+      outline.scale.set(scale, scale, scale);
       material.emissiveIntensity = glowIntensity;
 
       // Keep Z rotation at 180 degrees (flipped upward) - NO OTHER ROTATION
       heart.rotation.z = Math.PI;
+      outline.rotation.z = Math.PI;
 
       renderer.render(scene, camera);
     }
@@ -140,7 +157,9 @@ export default function GeometricHeart() {
         mountRef.current.removeChild(renderer.domElement);
       }
       geometry.dispose();
+      edges.dispose();
       material.dispose();
+      lineMaterial.dispose();
       renderer.dispose();
     };
   }, []);

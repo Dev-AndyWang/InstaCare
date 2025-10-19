@@ -46,33 +46,75 @@ export default function TeamSection() {
         >
           {/* Headline */}
           <div className="text-center max-w-4xl mx-auto mb-16">
-            <h2 className="text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-8 leading-tight">
+            <h2 className="text-5xl lg:text-7xl xl:text-8xl font-black text-dark-charcoal mb-8 leading-tight">
               The team
             </h2>
           </div>
 
           {/* Team Grid */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mb-20">
-            {teamMembers.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 40 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
-                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 border border-gray-100 text-center"
-              >
-                {/* Profile Circle */}
-                <div className="w-24 h-24 mx-auto rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-6">
-                  <span className="text-3xl font-bold text-white">{member.initials}</span>
-                </div>
+          <div className="mb-20">
+            {/* Top Row - 3 Members */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mb-10">
+              {teamMembers.slice(0, 3).map((member, index) => {
+                const avatarColors = [
+                  'bg-[#EC4899]',   // Andy Wang: bright pink
+                  'bg-[#A855F7]',   // Cayden Granado: bright purple
+                  'bg-[#3B82F6]'    // William Nguyen: bright blue
+                ];
 
-                {/* Name */}
-                <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-2">{member.name}</h3>
+                return (
+                  <motion.div
+                    key={member.name}
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6, delay: 0.1 + index * 0.1 }}
+                    className="bg-cream rounded-2xl p-8 shadow-card-soft hover:shadow-card-medium hover:scale-[1.02] transition-all duration-300 border-2 border-[#C0C0C0] text-center"
+                  >
+                    {/* Profile Circle */}
+                    <div className={`w-24 h-24 mx-auto rounded-full ${avatarColors[index]} flex items-center justify-center mb-6 shadow-lg`}>
+                      <span className="text-3xl font-bold text-white drop-shadow-sm">{member.initials}</span>
+                    </div>
 
-                {/* Role */}
-                <p className="text-lg text-gray-600">{member.role}</p>
-              </motion.div>
-            ))}
+                    {/* Name */}
+                    <h3 className="text-2xl lg:text-3xl font-black text-dark-charcoal mb-2">{member.name}</h3>
+
+                    {/* Role */}
+                    <p className="text-lg text-text-primary font-semibold">{member.role}</p>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Bottom Row - 2 Members Centered */}
+            <div className="grid md:grid-cols-2 gap-10 max-w-3xl mx-auto">
+              {teamMembers.slice(3, 5).map((member, index) => {
+                const avatarColors = [
+                  'bg-[#F97316]',   // Jasmine Bui: bright orange
+                  'bg-[#06B6D4]'    // Jayden Dhaliwal: bright cyan
+                ];
+
+                return (
+                  <motion.div
+                    key={member.name}
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
+                    className="bg-cream rounded-2xl p-8 shadow-card-soft hover:shadow-card-medium hover:scale-[1.02] transition-all duration-300 border-2 border-[#C0C0C0] text-center"
+                  >
+                    {/* Profile Circle */}
+                    <div className={`w-24 h-24 mx-auto rounded-full ${avatarColors[index]} flex items-center justify-center mb-6 shadow-lg`}>
+                      <span className="text-3xl font-bold text-white drop-shadow-sm">{member.initials}</span>
+                    </div>
+
+                    {/* Name */}
+                    <h3 className="text-2xl lg:text-3xl font-black text-dark-charcoal mb-2">{member.name}</h3>
+
+                    {/* Role */}
+                    <p className="text-lg text-text-primary font-semibold">{member.role}</p>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
 
           {/* CTA Section */}
@@ -82,15 +124,15 @@ export default function TeamSection() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="max-w-3xl mx-auto"
           >
-            <div className="bg-gradient-to-br from-purple-100/80 via-pink-100/70 to-blue-100/60 backdrop-blur-sm rounded-3xl p-12 lg:p-16 text-center shadow-lg border border-purple-200/50">
-              <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 flex items-center justify-center">
-                <Mail className="w-8 h-8 text-white" />
+            <div className="bg-cream backdrop-blur-sm rounded-3xl p-12 lg:p-16 text-center shadow-card-medium border-2 border-[#C0C0C0]">
+              <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-[#A855F7] flex items-center justify-center shadow-lg">
+                <Mail className="w-8 h-8 text-white drop-shadow-sm" />
               </div>
-              <h3 className="text-4xl lg:text-5xl font-bold mb-6 text-gray-900">Get in touch</h3>
-              <p className="text-xl lg:text-2xl text-gray-700 mb-8 leading-relaxed">
+              <h3 className="text-4xl lg:text-6xl font-black mb-6 text-dark-charcoal">Get in touch</h3>
+              <p className="text-xl lg:text-2xl text-text-primary mb-8 leading-relaxed font-semibold">
                 Questions? We're here to help.
               </p>
-              <button className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-10 py-4 rounded-full text-xl font-bold hover:shadow-[0_0_30px_rgba(168,85,247,0.4)] hover:scale-105 transition-all duration-300 shadow-lg">
+              <button className="bg-cream border-2 border-[#E6D5FF] text-dark-charcoal px-10 py-4 rounded-full text-xl font-bold hover:shadow-glow-lavender-lg hover:scale-105 transition-all duration-300 shadow-button-soft">
                 Contact Us
               </button>
             </div>

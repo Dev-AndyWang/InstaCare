@@ -27,7 +27,7 @@ ${index + 1}. Location: ${point.bodyPartName} (${point.view} view)
    - Image: ${point.image ? `Included (Image ${index + 1})` : 'Not provided'}
   `).join('\n');
 
-  const prompt = `Analyze these symptoms and provide a comprehensive health assessment:
+  const prompt = `You are a medical AI assistant analyzing symptoms to provide CONCISE, ACTIONABLE health guidance.
 
 PATIENT INFORMATION:
 - Age: ${userData.age || 'Not specified'}
@@ -43,148 +43,136 @@ I have included ${userData.painPoints.filter(p => p.image).length} image(s) of t
 - Posture or positioning issues
 - Any other visual indicators that might help with diagnosis
 
-Reference each image by its number (Image 1, Image 2, etc.) when discussing visual findings.
+**IMPORTANT**: Reference each image by its number (Image 1, Image 2, etc.) when discussing visual findings in the "Why We Think This" section.
 ` : ''}
-Please provide a detailed analysis in EXACTLY this 5-section format. Use clear headers and markdown formatting:
 
-# 📋 WHAT THIS MIGHT BE
+CRITICAL FORMATTING INSTRUCTIONS:
+- ALL content MUST be in bullet point format using asterisk (*)
+- NO long paragraphs - break everything into concise bullet points
+- Each bullet should be 1-2 lines maximum
+- Use **Bold Text** for subsection headers
+- Keep content ULTRA-MINIMAL (2-3 bullets max per subsection)
+- ONLY include sections directly relevant to this specific condition
+- Skip irrelevant sections entirely
+- Be conversational, empathetic, and reassuring
+- Use beginner-friendly language - avoid medical jargon
+- Reference images naturally (e.g., "Based on Image 1...")
 
-## Most Likely Condition
-[Name of condition]
-
-### In Simple Terms
-[Explain in beginner-friendly language what this condition means]
-
-### Why We Think This
-[Explain how the symptoms match this condition]
-
-## Other Possibilities
-1. [Alternative condition 1] - [Brief explanation]
-2. [Alternative condition 2] - [Brief explanation]
-3. [Alternative condition 3] - [Brief explanation]
+Please provide your analysis in EXACTLY this bullet-point format:
 
 ---
 
-# ⚠️ HOW SERIOUS IS THIS?
+# 🔍 WHY WE THINK THIS
 
-## Severity Level
-[Choose ONE: 🟢 Mild | 🟡 Moderate | 🟠 Significant | 🔴 Severe]
+${hasImages ? '* Based on Image 1, [describe what you observe in the image]\n* [Connect visual findings to reported symptoms]\n* [Explain why this points to the diagnosis]' : '* [Bullet explaining primary symptom pattern]\n* [Bullet connecting symptoms to condition]\n* [Bullet providing reassurance or context]'}
 
-### What This Means
-[Explain the severity level in simple terms]
-
-## What You Should Do
-[Clear, actionable instruction with timeframe]
-
-## Warning Signs to Watch For
-- [Red flag 1]
-- [Red flag 2]
-- [Red flag 3]
+**Most Likely Condition**: [Condition name]
 
 ---
 
-# 🏠 WHAT YOU CAN DO AT HOME
+# 📊 QUICK SUMMARY
 
-## Diet & Nutrition
-### Foods to Eat More
-- [Food 1]
-- [Food 2]
-- [Food 3]
+**Severity**: [ONE emoji: 🟢 Mild | 🟡 Moderate | 🟠 Significant | 🔴 Severe]
 
-### Foods to Avoid
-- [Food 1]
-- [Food 2]
+**What This Means**: [One sentence]
 
-### Hydration
-[Hydration recommendations]
-
-## Physical Treatments
-
-### Rest & Activity
-[Instructions on rest and activity levels]
-
-### Hot/Cold Therapy
-[When to use ice vs heat, how long, how often]
-
-### Stretches & Exercises
-[Step-by-step instructions with frequency]
-
-### Posture & Positioning
-[How to sit, sleep, or move]
-
-## Lifestyle Changes
-- [Change 1]
-- [Change 2]
-- [Change 3]
-
-## Over-the-Counter Medications
-### Recommended Options
-- [Medication name (brand names)] - [Dosage] - [Frequency]
-
-### Important Warnings
-[Side effects or precautions]
-
-## When to Stop Home Treatment
-[Signs that DIY treatment isn't working]
+**What You Should Do**: [One sentence with clear timeline]
 
 ---
 
-# 🏥 WHAT A DOCTOR MIGHT DO
+# ⚠️ WHEN TO SEE A DOCTOR
 
-## The Doctor's Visit
-### Questions They'll Ask
-- [Question 1]
-- [Question 2]
-- [Question 3]
+**Timeline**: [When to seek care]
 
-### Physical Examination
-[What examination they might perform]
-
-## Tests & Diagnosis
-### Possible Tests
-- [Test 1] - In Simple Terms: [What it does]
-- [Test 2] - In Simple Terms: [What it does]
-
-## Treatment Options
-
-### Prescription Medications
-[Types they might prescribe and what they do]
-
-### Physical Therapy
-[When and why it might be recommended]
-
-### Procedures
-[Any medical procedures that might be suggested]
-
-## Recovery Timeline
-[Expected healing time and milestones]
+**Emergency Warning Signs** (seek immediate care if you experience):
+* [Critical sign 1]
+* [Critical sign 2]
+* [Critical sign 3]
+[Maximum 5 bullets - only the most critical warnings]
 
 ---
 
-# 👨‍⚕️ WHICH DOCTOR TO SEE
+# 🏠 HOME CARE ESSENTIALS
 
-## Start Here
-### Primary Care Doctor / Family Doctor
-[When to see them and what they can help with]
+**Rest & Activity**
+* [Guideline 1]
+* [Guideline 2]
+* [Guideline 3]
+[Maximum 3 bullets]
 
-## Specialists You Might Need
-### [Specialist Name]
-- **What They Treat**: [Explanation]
-- **When to See Them**: [Specific reasons]
-- **What to Expect**: [Brief overview]
+**Ice/Heat Therapy**
+* [Guideline 1]
+* [Guideline 2]
+* [Guideline 3]
+[Maximum 3 bullets - ONLY include if relevant to this condition]
 
-## Emergency Situations
-### When to Call 911
-- [Emergency sign 1]
-- [Emergency sign 2]
-- [Emergency sign 3]
+**Over-the-Counter Medication**
+* [Medication 1 (Brand Name)]: [Dosage] - [Frequency]
+* [Medication 2 (Brand Name)]: [Dosage] - [Frequency]
+[Maximum 2 medications with simple dosing - ONLY if OTC meds help]
 
-### When to Visit Urgent Care
-[Situations for urgent care vs ER]
+[ONLY INCLUDE THESE SUBSECTIONS IF DIRECTLY RELEVANT:]
+
+**Diet & Nutrition** [ONLY if nutrition impacts this condition]
+* [Key recommendation 1]
+* [Key recommendation 2]
+* [Key recommendation 3]
+[Maximum 3 bullets - SKIP if diet doesn't affect the condition]
+
+**Exercises/Stretches** [ONLY if movement therapy helps]
+* [Simple exercise 1]
+* [Simple exercise 2]
+* [Simple exercise 3]
+[Maximum 3 bullets - SKIP if rest is needed]
+
+**Posture/Positioning** [ONLY if relevant]
+* [Position guideline 1]
+* [Position guideline 2]
+[Maximum 2 bullets - SKIP if not relevant]
 
 ---
 
-Remember to use simple, beginner-friendly language throughout. Avoid medical jargon unless you explain it immediately. Be empathetic and supportive in tone.`;
+# 📅 WHAT TO EXPECT
+
+**Recovery Timeline**
+* [Expected healing time with milestones]
+* [What to expect during recovery]
+
+**Key Milestones**
+* [Day 1-3: What to expect]
+* [Week 1-2: What to expect]
+* [Full recovery: Timeline]
+[Maximum 3 bullets with timeframes]
+
+[ONLY INCLUDE IF SPECIALIST NEEDED:]
+**Which Doctor to See**
+* **[Specialist type 1]**: [When/why to see them]
+* **[Specialist type 2]**: [When/why to see them]
+[Maximum 2 specialists - SKIP if primary care is sufficient]
+
+---
+
+# 🤔 OTHER POSSIBILITIES
+
+[ONLY include if confidence is not very high - otherwise SKIP this entire section]
+
+* **[Alternative 1]**: [One sentence why it's possible]
+* **[Alternative 2]**: [One sentence why it's possible]
+[Maximum 2 alternatives]
+
+---
+
+FORMATTING RULES - STRICTLY FOLLOW:
+1. Use asterisk (*) for ALL bullet points - NEVER use dash (-)
+2. Each bullet is 1-2 lines maximum
+3. Subsection headers use **Bold Text**
+4. Main sections use # with emoji
+5. Separate sections with ---
+6. NO paragraphs - only bullets
+7. Reference images naturally in bullets (e.g., "Based on Image 1, I can see...")
+8. Keep spacing tight and content scannable
+9. SKIP any section that doesn't apply to this specific condition
+10. Make every bullet actionable and clear`;
 
   try {
     // Build content array for multimodal support

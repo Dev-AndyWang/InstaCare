@@ -8,6 +8,20 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
     return point ? point.intensity : null;
   };
 
+  const getPainColor = (bodyPartId) => {
+    const point = painPoints.find(p => p.bodyPartId === bodyPartId);
+    if (!point) return 'transparent';
+
+    const intensity = point.intensity;
+    if (intensity <= 3) {
+      return '#FDE047'; // Yellow for mild pain
+    } else if (intensity <= 6) {
+      return '#FB923C'; // Orange for moderate pain
+    } else {
+      return '#EF4444'; // Red for severe pain
+    }
+  };
+
   return (
     <svg viewBox="0 0 200 450" className="w-full h-auto max-w-sm">
       {/* Head (Back) */}
@@ -15,7 +29,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
         <ellipse
           cx="100" cy="40" rx="25" ry="30"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-head') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-head') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-head') && (
@@ -31,7 +45,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
           x="85" y="70" width="30" height="25"
           rx="3"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-neck') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-neck') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-neck') && (
@@ -47,7 +61,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
           x="75" y="95" width="50" height="40"
           rx="5"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-upper') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-upper') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-upper') && (
@@ -63,7 +77,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
           x="78" y="135" width="44" height="35"
           rx="5"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-mid') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-mid') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-mid') && (
@@ -79,7 +93,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
           x="80" y="170" width="40" height="35"
           rx="5"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-lower') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-lower') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-lower') && (
@@ -94,7 +108,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
         <ellipse
           cx="70" cy="105" rx="18" ry="15"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-shoulder-right') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-shoulder-right') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-shoulder-right') && (
@@ -109,7 +123,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
         <ellipse
           cx="130" cy="105" rx="18" ry="15"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-shoulder-left') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-shoulder-left') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-shoulder-left') && (
@@ -124,7 +138,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
         <ellipse
           cx="100" cy="220" rx="30" ry="25"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-buttocks') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-buttocks') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-buttocks') && (
@@ -140,7 +154,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
           x="45" y="120" width="18" height="55"
           rx="9"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-upper-arm-right') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-upper-arm-right') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-upper-arm-right') && (
@@ -156,7 +170,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
           x="137" y="120" width="18" height="55"
           rx="9"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-upper-arm-left') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-upper-arm-left') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-upper-arm-left') && (
@@ -171,7 +185,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
         <circle
           cx="54" cy="180" r="10"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-elbow-right') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-elbow-right') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-elbow-right') && (
@@ -186,7 +200,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
         <circle
           cx="146" cy="180" r="10"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-elbow-left') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-elbow-left') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-elbow-left') && (
@@ -202,7 +216,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
           x="48" y="190" width="12" height="50"
           rx="6"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-forearm-right') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-forearm-right') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-forearm-right') && (
@@ -218,7 +232,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
           x="140" y="190" width="12" height="50"
           rx="6"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-forearm-left') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-forearm-left') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-forearm-left') && (
@@ -233,7 +247,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
         <ellipse
           cx="54" cy="252" rx="10" ry="12"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-hand-right') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-hand-right') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-hand-right') && (
@@ -248,7 +262,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
         <ellipse
           cx="146" cy="252" rx="10" ry="12"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-hand-left') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-hand-left') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-hand-left') && (
@@ -264,7 +278,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
           x="82" y="245" width="16" height="80"
           rx="8"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-hamstring-right') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-hamstring-right') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-hamstring-right') && (
@@ -280,7 +294,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
           x="102" y="245" width="16" height="80"
           rx="8"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-hamstring-left') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-hamstring-left') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-hamstring-left') && (
@@ -296,7 +310,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
           x="84" y="340" width="13" height="70"
           rx="6"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-calf-right') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-calf-right') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-calf-right') && (
@@ -312,7 +326,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
           x="103" y="340" width="13" height="70"
           rx="6"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-calf-left') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-calf-left') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-calf-left') && (
@@ -327,7 +341,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
         <ellipse
           cx="90" cy="422" rx="12" ry="10"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-foot-right') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-foot-right') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-foot-right') && (
@@ -342,7 +356,7 @@ export default function MaleBodyBack({ painPoints, onBodyPartClick }) {
         <ellipse
           cx="110" cy="422" rx="12" ry="10"
           stroke="#D1D5DB" strokeWidth="2" strokeDasharray="4 4"
-          fill={isPainPoint('back-foot-left') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('back-foot-left') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('back-foot-left') && (

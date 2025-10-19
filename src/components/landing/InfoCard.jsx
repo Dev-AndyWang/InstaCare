@@ -13,20 +13,20 @@ export default function InfoCard() {
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-[0_2px_40px_rgba(0,0,0,0.04)] p-12 lg:p-16 hover:shadow-[0_4px_60px_rgba(0,0,0,0.06)] transition-all duration-500 text-center"
+          className="bg-cream/80 backdrop-blur-sm rounded-3xl shadow-card-medium border-2 border-[#C0C0C0] hover:shadow-card-hover transition-all duration-500 text-center p-12 lg:p-16"
         >
           {/* Centered Content */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="space-y-8 max-w-4xl mx-auto"
+            className="space-y-8 max-w-6xl mx-auto"
           >
-            <h2 className="text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 leading-tight">
+            <h2 className="text-5xl lg:text-7xl xl:text-8xl font-black text-dark-charcoal leading-tight whitespace-nowrap">
               Your health matters
             </h2>
 
-            <p className="text-xl lg:text-2xl text-gray-600 leading-relaxed whitespace-nowrap">
+            <p className="text-2xl lg:text-3xl text-warm-gray leading-relaxed font-medium whitespace-nowrap">
               Don't wait. Map your symptoms and get AI-powered insights today.
             </p>
           </motion.div>

@@ -8,6 +8,20 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
     return point ? point.intensity : null;
   };
 
+  const getPainColor = (bodyPartId) => {
+    const point = painPoints.find(p => p.bodyPartId === bodyPartId);
+    if (!point) return 'transparent';
+
+    const intensity = point.intensity;
+    if (intensity <= 3) {
+      return '#FDE047'; // Yellow for mild pain
+    } else if (intensity <= 6) {
+      return '#FB923C'; // Orange for moderate pain
+    } else {
+      return '#EF4444'; // Red for severe pain
+    }
+  };
+
   const isSelected = (bodyPartId) => {
     return selectedBodyPart === bodyPartId;
   };
@@ -15,7 +29,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
   const getStrokeProps = (bodyPartId) => {
     if (isSelected(bodyPartId)) {
       return {
-        stroke: "#8B5CF6",
+        stroke: "#000000",
         strokeWidth: "4",
         strokeDasharray: ""
       };
@@ -40,7 +54,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           rx="25"
           ry="30"
           {...getStrokeProps('front-head')}
-          fill={isPainPoint('front-head') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('front-head')}
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-head') && (
@@ -62,7 +76,7 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           height="20"
           rx="3"
           {...getStrokeProps('front-neck')}
-          fill={isPainPoint('front-neck') ? '#FB923C' : 'transparent'}
+          fill={getPainColor('front-neck') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-neck') && (
@@ -81,10 +95,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           cx="70"
           cy="100"
           r="12"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-right-shoulder') ? '#FB923C' : 'transparent'}
+          {...getStrokeProps('front-right-shoulder')}
+          fill={getPainColor('front-right-shoulder') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-right-shoulder') && (
@@ -103,10 +115,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           cx="130"
           cy="100"
           r="12"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-left-shoulder') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-left-shoulder')}
+          fill={getPainColor('front-left-shoulder') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-left-shoulder') && (
@@ -127,10 +137,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           width="50"
           height="35"
           rx="8"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-upper-chest') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-upper-chest')}
+          fill={getPainColor('front-upper-chest') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-upper-chest') && (
@@ -151,10 +159,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           width="40"
           height="30"
           rx="6"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-mid-chest') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-mid-chest')}
+          fill={getPainColor('front-mid-chest') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-mid-chest') && (
@@ -175,10 +181,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           width="40"
           height="30"
           rx="6"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-upper-abdomen') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-upper-abdomen')}
+          fill={getPainColor('front-upper-abdomen') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-upper-abdomen') && (
@@ -199,10 +203,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           width="36"
           height="35"
           rx="6"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-lower-abdomen') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-lower-abdomen')}
+          fill={getPainColor('front-lower-abdomen') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-lower-abdomen') && (
@@ -223,10 +225,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           width="18"
           height="60"
           rx="9"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-right-upper-arm') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-right-upper-arm')}
+          fill={getPainColor('front-right-upper-arm') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-right-upper-arm') && (
@@ -247,10 +247,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           width="18"
           height="60"
           rx="9"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-left-upper-arm') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-left-upper-arm')}
+          fill={getPainColor('front-left-upper-arm') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-left-upper-arm') && (
@@ -269,10 +267,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           cx="57"
           cy="165"
           r="8"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-right-elbow') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-right-elbow')}
+          fill={getPainColor('front-right-elbow') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-right-elbow') && (
@@ -291,10 +287,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           cx="143"
           cy="165"
           r="8"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-left-elbow') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-left-elbow')}
+          fill={getPainColor('front-left-elbow') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-left-elbow') && (
@@ -315,10 +309,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           width="16"
           height="55"
           rx="8"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-right-forearm') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-right-forearm')}
+          fill={getPainColor('front-right-forearm') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-right-forearm') && (
@@ -339,10 +331,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           width="16"
           height="55"
           rx="8"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-left-forearm') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-left-forearm')}
+          fill={getPainColor('front-left-forearm') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-left-forearm') && (
@@ -362,10 +352,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           cy="238"
           rx="10"
           ry="12"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-right-hand') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-right-hand')}
+          fill={getPainColor('front-right-hand') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-right-hand') && (
@@ -385,10 +373,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           cy="238"
           rx="10"
           ry="12"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-left-hand') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-left-hand')}
+          fill={getPainColor('front-left-hand') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-left-hand') && (
@@ -409,10 +395,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           width="16"
           height="80"
           rx="8"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-right-thigh') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-right-thigh')}
+          fill={getPainColor('front-right-thigh') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-right-thigh') && (
@@ -433,10 +417,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           width="16"
           height="80"
           rx="8"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-left-thigh') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-left-thigh')}
+          fill={getPainColor('front-left-thigh') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-left-thigh') && (
@@ -455,10 +437,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           cx="90"
           cy="305"
           r="10"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-right-knee') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-right-knee')}
+          fill={getPainColor('front-right-knee') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-right-knee') && (
@@ -477,10 +457,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           cx="110"
           cy="305"
           r="10"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-left-knee') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-left-knee')}
+          fill={getPainColor('front-left-knee') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-left-knee') && (
@@ -501,10 +479,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           width="14"
           height="80"
           rx="7"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-right-shin') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-right-shin')}
+          fill={getPainColor('front-right-shin') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-right-shin') && (
@@ -525,10 +501,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           width="14"
           height="80"
           rx="7"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-left-shin') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-left-shin')}
+          fill={getPainColor('front-left-shin') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-left-shin') && (
@@ -548,10 +522,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           cy="405"
           rx="12"
           ry="18"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-right-foot') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-right-foot')}
+          fill={getPainColor('front-right-foot') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-right-foot') && (
@@ -571,10 +543,8 @@ export default function MaleBodyFront({ painPoints, onBodyPartClick, selectedBod
           cy="405"
           rx="12"
           ry="18"
-          
-          strokeWidth="2"
-          strokeDasharray="4 4"
-          fill={isPainPoint('front-left-foot') ? '#FB923C' : 'transparent'}
+{...getStrokeProps('front-left-foot')}
+          fill={getPainColor('front-left-foot') }
           className="transition-all duration-200 hover:fill-orange-100"
         />
         {isPainPoint('front-left-foot') && (

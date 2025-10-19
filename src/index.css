@@ -9,8 +9,10 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background: #FFFFFF;
-  color: #1a1a1a;
+  background: #FFF8F0;
+  color: #3D3D3D;
+  font-size: 16px;
+  line-height: 1.6;
 }
 
 /* Smooth scrolling */
@@ -28,12 +30,12 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #c4b5fd;
+  background: #E6D5FF;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a78bfa;
+  background: #D5B3FF;
 }
 
 /* Custom animations */

@@ -144,11 +144,11 @@ export default function PainDetailsForm({
 
   return (
     <div className="bg-white rounded-3xl shadow-xl">
-      <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-6 rounded-t-3xl">
-        <h2 className="text-2xl lg:text-3xl font-black text-white">
+      <div className="bg-[#B8D4A8] px-8 py-6 rounded-t-3xl">
+        <h2 className="text-2xl lg:text-3xl font-black text-gray-800">
           {existingData ? 'Edit' : 'Add'} Pain Details
         </h2>
-        <p className="text-purple-100 mt-2 text-lg font-semibold">{bodyPartName}</p>
+        <p className="text-gray-700 mt-2 text-lg font-semibold">{bodyPartName}</p>
       </div>
 
       <form onSubmit={handleSubmit} className="p-8 space-y-6 max-h-[calc(100vh-300px)] overflow-y-auto">
@@ -344,7 +344,7 @@ export default function PainDetailsForm({
           <button
             type="submit"
             disabled={!formData.painType || !formData.sensation || !formData.duration}
-            className="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-bold hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            className="px-8 py-3 bg-[#B8D4A8] text-gray-800 rounded-xl font-bold hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all"
           >
             {existingData ? 'Update' : 'Save'}
           </button>

@@ -32,7 +32,7 @@ export default function SideNav({ activeSection }) {
     >
       <div className="relative flex flex-col gap-8">
         {/* Vertical line */}
-        <div className="absolute left-0 top-0 w-px h-full bg-gradient-to-b from-gray-200 via-purple-200 to-gray-200"></div>
+        <div className="absolute left-0 top-0 w-px h-full bg-gradient-to-b from-very-light-gray via-lavender to-very-light-gray"></div>
 
         {sections.map((section, index) => (
           <motion.button
@@ -41,13 +41,13 @@ export default function SideNav({ activeSection }) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
             onClick={() => scrollToSection(section.id)}
-            className="relative pl-6 text-sm font-medium transition-all duration-300 hover:text-gray-900 text-left group"
+            className="relative pl-6 text-sm font-medium transition-all duration-300 hover:text-warm-charcoal text-left group"
           >
             {/* Active indicator dot */}
             {activeSection === section.id && (
               <motion.div
                 layoutId="activeIndicator"
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 shadow-lg shadow-purple-500/50"
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-gradient-to-br from-soft-blush to-lavender shadow-lg shadow-lavender/50"
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
               />
             )}
@@ -55,8 +55,8 @@ export default function SideNav({ activeSection }) {
             <span
               className={`transition-all duration-300 ${
                 activeSection === section.id
-                  ? 'text-transparent bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text font-bold text-base scale-110 inline-block'
-                  : 'text-gray-400'
+                  ? 'text-transparent bg-gradient-to-r from-lavender to-soft-blush bg-clip-text font-bold text-base scale-110 inline-block'
+                  : 'text-light-warm-gray'
               }`}
             >
               {section.label}
