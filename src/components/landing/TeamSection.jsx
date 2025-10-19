@@ -9,7 +9,7 @@ export default function TeamSection() {
   const teamMembers = [
     {
       name: "Andy Wang",
-      role: "Lead Developer",
+      role: "Project Manager",
       initials: "AW"
     },
     {
