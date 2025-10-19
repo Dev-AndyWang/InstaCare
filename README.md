@@ -1,18 +1,85 @@
-# InstaCare
+ # InstaCare
 
- InstaCare - Body Pain Mapping Application built with Javascript, React + Vite
+  An AI-powered health diagnosis platform that helps      
+  users identify potential health conditions through      
+  interactive body pain mapping and diagnostic
+  analysis.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+  ## Overview
 
-Currently, two official plugins are available:
+  InstaCare allows users to visually map pain points      
+  on anatomical diagrams, describe their symptoms in      
+  detail, and receive AI-generated health insights.       
+  The application provides structured diagnostic
+  reports based on user input and advanced language       
+  model analysis.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  ## Key Features
 
-## React Compiler
+  **Interactive Body Mapping**
+  - Clickable anatomical diagrams with front and back     
+  views
+  - Visual pain intensity indicators with color-coded     
+  severity
+  - Support for multiple simultaneous pain points
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+  **Comprehensive Assessment**
+  - Detailed symptom questionnaire for each body part     
+  - Pain classification (Acute, Chronic, Nerve,
+  Muscle, Joint, Bone, Referred, Phantom)
+  - Intensity scale (1-10) with visual feedback
+  - Sensation descriptors and duration tracking
+  - Optional image upload for affected areas
 
-## Expanding the ESLint configuration
+  **AI Diagnosis**
+  - Analysis powered by Claude Sonnet 4.5
+  - Structured reports including possible conditions,     
+  severity assessment, and recommendations
+  - Markdown-formatted results with clear sections        
+  - Medical disclaimer and guidance on when to seek       
+  immediate care
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+  **Additional Features**
+  - Multi-language support (10 languages including        
+  English, Spanish, Chinese, Hindi, Arabic, French,       
+  Portuguese, Russian, Japanese, German)
+  - Pain data export as JSON
+  - Print-friendly diagnosis results
+  - Responsive design for all devices
+  - Smooth page transitions
+
+  ## Tech Stack
+
+  - React 19
+  - Vite 7
+  - TailwindCSS v4
+  - Framer Motion (animations)
+  - Three.js (3D visualizations)
+  - Lucide React (icons)
+  - Anthropic Claude API
+
+  The app consists of three main pages:
+
+  1. Landing Page - Features overview, technology
+  showcase, and team information
+  2. Diagnosis App - Interactive pain mapping
+  interface with body diagrams and assessment forms       
+  3. Results Page - AI-generated diagnostic analysis      
+  with structured health insights
+
+  Color System
+
+  Pain intensity is visualized using a three-tier
+  color system:
+  - Yellow: Mild (1-3)
+  - Orange: Moderate (4-6)
+  - Red: Severe (7-10)
+
+  Medical Disclaimer
+
+  This application is for informational purposes only     
+  and does not replace professional medical advice,       
+  diagnosis, or treatment. Always consult with a
+  qualified healthcare provider for proper medical        
+  care. If experiencing a medical emergency, call 911     
+  immediately.
